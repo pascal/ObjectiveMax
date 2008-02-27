@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "dr.op"
+
+EXPORTS
+	main
