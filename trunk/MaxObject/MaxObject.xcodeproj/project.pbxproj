@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221E121B0D8C9C7600E8C8B8 /* maxobjectbridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C05AA0CB6989200459F52 /* maxobjectbridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		221E121C0D8C9CA300E8C8B8 /* MaxObject_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF5E0370ADEE00C91783 /* MaxObject_Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		225C05AC0CB6989A00459F52 /* maxobjectbridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C05AB0CB6989A00459F52 /* maxobjectbridge.m */; };
 		2297EBEF0CC12D25005B771C /* MaxAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297EBED0CC12D25005B771C /* MaxAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2297EBF00CC12D25005B771C /* MaxAudioSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2297EBEE0CC12D25005B771C /* MaxAudioSignal.m */; };
@@ -146,6 +148,8 @@
 			files = (
 				22A403890CAD7BBB00E5299E /* MaxObject.h in Headers */,
 				2297EBEF0CC12D25005B771C /* MaxAudioSignal.h in Headers */,
+				221E121B0D8C9C7600E8C8B8 /* maxobjectbridge.h in Headers */,
+				221E121C0D8C9CA300E8C8B8 /* MaxObject_Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

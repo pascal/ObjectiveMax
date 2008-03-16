@@ -53,8 +53,6 @@
 		long		numInlets;
 		long		numOutlets;
 
-	@protected
-
 	@private
 		void		**inlets;
 		t_symbol	**inletNames;
