@@ -419,7 +419,7 @@ t_max_err maxobject_callmethod(t_maxobject *x, char *cmethname, long argc, t_ato
 	SEL			methodSelector = NSSelectorFromString(methodName);
 
 	if([x->me respondsToSelector:methodSelector])
-		return (t_max_err)objc_msgSend(x->me, methodSelector, argc, argv);
+		return (t_max_err)objc_msgSend(x->me, methodSelector, gensym(cmethname), argc, argv);
 
 	[methodName release];
 	return MAXOBJECTBRIDGE_ERR_NO_METHOD_FOUND;
