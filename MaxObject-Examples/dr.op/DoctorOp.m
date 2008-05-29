@@ -64,14 +64,14 @@ int main(void)
 {
 	[super initWithObject:x name:s numArgs:argc andValues:argv];
 	modeAttribute = gensym("+");							// set default
-	atom_arg_getsym(&modeAttribute, 0, argc, argv);			// support a 'normal' (non-attribute) arguments
-	atom_arg_getfloat(&operandAttribute, 1, argc, argv);	// attribute processing is handled automatically afterwards
+	atom_arg_getsym(&modeAttribute, 0, argc, argv);			// support a 'normal' (non-attribute) argument
+	atom_arg_getfloat(&operandAttribute, 1, argc, argv);	// ...
 	
 	[self createInletWithIndex:0	named:"main_inlet"	withAssistanceMessage:"(int/float) Input"];
 	[self createInletWithIndex:1	named:"set_inlet"	withAssistanceMessage:"(int/float) Operand"];
 	[self createOutletWithIndex:0	named:"main_outlet"	withAssistanceMessage:"Computed Output"];
 
-	return self;
+	return self;	// attribute processing is handled automatically after we return
 }
 
 
@@ -94,7 +94,7 @@ int main(void)
 	else if(modeAttribute == gensym("/"))
 		[self sendFloat:(input / operandAttribute) toOutlet:0];
 	else{
-		object_error(maxObjectBridge, "invalid mode attribute for calculation");
+		[self postError:"invalid mode attribute for calculation"];
 		return MAX_ERR_GENERIC;
 	}
 	return MAX_ERR_NONE;
@@ -116,7 +116,7 @@ int main(void)
 
 - (t_max_err) intMessage:(long)value
 {
-	return (t_max_err)[self floatMessage:(double)value];
+	return [self floatMessage:(double)value];
 }
 
 
@@ -127,14 +127,15 @@ int main(void)
 		operandAttribute = atom_getfloat(argv+1);
 		return [self bangMessage];
 	}
-	object_error(maxObjectBridge, "wrong number of args for list");
+
+	[self postError:"wrong number of args for list: received %ld, expected 2", argc];
 	return MAX_ERR_GENERIC;
 }
 
 
 - (t_max_err) postoperatorsTypedMessage:(t_symbol *)s withNumArgs:(long)argc andValues:(t_atom *)argv
 {
-	object_post(maxObjectBridge, "Available operators for this object are: +, -, *, /");
+	[self postMessage:"Available operators for this object are: +, -, *, /"];
 	return MAX_ERR_NONE;
 }
 
@@ -152,7 +153,7 @@ int main(void)
 // And an attribute getter...
 - (long) autotriggerAttribute
 {
-	object_post(maxObjectBridge, "custom getter called");
+	[self postMessage:"custom getter called"];
 	return autotriggerAttribute;
 }
 

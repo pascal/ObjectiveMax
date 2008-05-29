@@ -20,7 +20,7 @@
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		229080F60CA9FF3900530300 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		22A403B20CAD7D4300E5299E /* MaxObject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxObject.framework; path = /Library/Frameworks/MaxObject.framework; sourceTree = "<absolute>"; };
-		22A403C90CAD7E7000E5299E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		22A403C90CAD7E7000E5299E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22C8BD840CB3179F0094575E /* DoctorOp~.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "DoctorOp~.m"; sourceTree = "<group>"; };
 		22C8BD900CB318640094575E /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		542ED84F09C02A0000DBC7EB /* dr.op~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr.op~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,7 +204,6 @@
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";

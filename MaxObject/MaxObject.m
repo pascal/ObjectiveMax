@@ -400,19 +400,6 @@ tryMessage:
 }
 
 
-- (t_max_err) postMessageToConsole:(t_symbol*)s withNumArgs:(long)argc andValues:(t_atom *)argv 
-{
-	// TODO: look for the symbol object_error() in the framework, if it isn't present, then use error()
-	return MAX_ERR_NONE;
-}
-
-- (t_max_err) postErrorToConsole:(t_symbol*)s withNumArgs:(long)argc andValues:(t_atom *)argv 
-{
-	// TODO: look for the symbol object_post() in the framework, if it isn't present, then use post()
-	return MAX_ERR_NONE;
-}
-
-
 - (t_max_err) sendInt:(long)value toOutlet:(long)indexNum
 {
 	outlet_float(outlets[indexNum], value);
@@ -530,6 +517,42 @@ tryMessage:
 		// If no accessor method is found, then we get the value directly
 		object_getInstanceVariable(self, [key cString], (void **)&value);
 	return value;
+}
+
+
+- (void) postMessage:(char*)string, ...
+{
+	va_list argumentList;
+	char	formattedString[2048];
+	
+	va_start(argumentList, string);
+	vsnprintf(formattedString, 2048, string, argumentList);
+	object_post(maxObjectBridge, formattedString);
+	va_end(argumentList);
+}
+
+
+- (void) postWarning:(char*)string, ...
+{
+	va_list argumentList;
+	char	formattedString[2048];
+	
+	va_start(argumentList, string);
+	vsnprintf(formattedString, 2048, string, argumentList);
+	object_warn(maxObjectBridge, formattedString);
+	va_end(argumentList);
+}
+
+
+- (void) postError:(char*)string, ...
+{
+	va_list argumentList;
+	char	formattedString[2048];
+	
+	va_start(argumentList, string);
+	vsnprintf(formattedString, 2048, string, argumentList);
+	object_error(maxObjectBridge, formattedString);
+	va_end(argumentList);
 }
 
 

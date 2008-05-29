@@ -91,4 +91,8 @@
 - (void)		setSymbol:					(t_symbol*)value forKey:(NSString *)key;
 - (t_symbol *)	symbolForKey:				(NSString *)key;
 
+- (void) postMessage:(char*)string, ...;
+- (void) postWarning:(char*)string, ...;
+- (void) postError:(char*)string, ...;
+
 @end
