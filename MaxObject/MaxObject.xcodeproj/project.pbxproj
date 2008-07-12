@@ -268,7 +268,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = MaxObject;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -297,7 +297,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
 				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = MaxObject;
 				WRAPPER_EXTENSION = framework;
 			};
