@@ -18,6 +18,10 @@
 		22A4038A0CAD7BBB00E5299E /* MaxObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A403880CAD7BBB00E5299E /* MaxObject.m */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
+		22FD61730F40A6FC006B4B08 /* MaxObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A403880CAD7BBB00E5299E /* MaxObject.m */; };
+		22FD61740F40A6FC006B4B08 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
+		22FD61750F40A6FC006B4B08 /* maxobjectbridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C05AB0CB6989A00459F52 /* maxobjectbridge.m */; };
+		22FD61760F40A6FC006B4B08 /* MaxAudioSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2297EBEE0CC12D25005B771C /* MaxAudioSignal.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -37,6 +41,7 @@
 		22A403880CAD7BBB00E5299E /* MaxObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MaxObject.m; sourceTree = "<group>"; };
 		22A403970CAD7C5100E5299E /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = "/Users/tim/dev/ObjectiveMax/c74support/max-includes/common/commonsyms.c"; sourceTree = "<absolute>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		22FD60610F3FC436006B4B08 /* libMaxObject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMaxObject.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DBCF5E0370ADEE00C91783 /* MaxObject_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxObject_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* MaxObject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaxObject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +49,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22FD605F0F3FC436006B4B08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF560486A6940098B216 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* MaxObject.framework */,
+				22FD60610F3FC436006B4B08 /* libMaxObject.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,6 +155,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		22FD605D0F3FC436006B4B08 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF500486A6940098B216 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,9 +176,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* MaxObject */ = {
+		22FD60600F3FC436006B4B08 /* MaxObject Static Lib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "MaxObject" */;
+			buildConfigurationList = 22FD60670F3FC465006B4B08 /* Build configuration list for PBXNativeTarget "MaxObject Static Lib" */;
+			buildPhases = (
+				22FD605D0F3FC436006B4B08 /* Headers */,
+				22FD605E0F3FC436006B4B08 /* Sources */,
+				22FD605F0F3FC436006B4B08 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MaxObject Static Lib";
+			productName = "MaxObject Static Lib";
+			productReference = 22FD60610F3FC436006B4B08 /* libMaxObject.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8DC2EF4F0486A6940098B216 /* MaxObject Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "MaxObject Framework" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -170,7 +207,7 @@
 			);
 			dependencies = (
 			);
-			name = MaxObject;
+			name = "MaxObject Framework";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = MaxObject;
 			productReference = 8DC2EF5B0486A6940098B216 /* MaxObject.framework */;
@@ -189,7 +226,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* MaxObject */,
+				8DC2EF4F0486A6940098B216 /* MaxObject Framework */,
+				22FD60600F3FC436006B4B08 /* MaxObject Static Lib */,
 			);
 		};
 /* End PBXProject section */
@@ -222,6 +260,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		22FD605E0F3FC436006B4B08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22FD61730F40A6FC006B4B08 /* MaxObject.m in Sources */,
+				22FD61740F40A6FC006B4B08 /* commonsyms.c in Sources */,
+				22FD61750F40A6FC006B4B08 /* maxobjectbridge.m in Sources */,
+				22FD61760F40A6FC006B4B08 /* MaxAudioSignal.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF540486A6940098B216 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,10 +380,76 @@
 			};
 			name = Release;
 		};
+		22FD60620F3FC438006B4B08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"../c74support/max-includes",
+					"../c74support/msp-includes",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MaxObject_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"../c74support/max-includes",
+					"../c74support/msp-includes",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MaxObject;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		22FD60630F3FC438006B4B08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"../c74support/max-includes",
+					"../c74support/msp-includes",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MaxObject_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"../c74support/max-includes",
+					"../c74support/msp-includes",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = MaxObject;
+				SKIP_INSTALL = YES;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "MaxObject" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "MaxObject Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
@@ -348,6 +463,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22FD60670F3FC465006B4B08 /* Build configuration list for PBXNativeTarget "MaxObject Static Lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22FD60620F3FC438006B4B08 /* Debug */,
+				22FD60630F3FC438006B4B08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
