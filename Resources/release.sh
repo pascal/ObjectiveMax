@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cp -rv ../ ../../ObjectiveMax-Release
+cp -rv .. ../../ObjectiveMax-Release
 cd ../../ObjectiveMax-Release
 
 pwd
