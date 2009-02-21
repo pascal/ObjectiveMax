@@ -1,8 +1,9 @@
 ObjectiveMax
 
 Framework for creating Max objects using Objective-C
-Version 0.1
-Rev 20 – 23 May 2008
+Timothy Place
+Electrotap, LLC
+
 ______________________________________________________
 
 
@@ -19,8 +20,8 @@ FEATURES
 
 
 REQUIREMENTS
-	Max 5.0 or newer
-	MacOS 10.4.x or MacOS 10.5.x
+	Max 5.0.6 or newer
+	MacOS 10.5.x
 
 
 LICENSE
@@ -34,9 +35,11 @@ DIRECTORIES
 	MaxObject-Examples 	--	Example Max externals written in Objective-C
 
 
-HOW TO BUILD OBJECTS -- MAC
-	1. Copy the MaxObject.framework to /Library/Frameworks (or build it)
-	2. Open the Xcode project for an object
-	3. Click the hammer icon or choose 'Build' from the menus
-	4. The external will need to be copied/added into the Max searchpath
+HOW TO BUILD OBJECTS
+	1. Copy the c74support folder from the Max 5 SDK into the same folder as this ReadMe file.
+	2. Build the framework from MaxObject.xcodeproj 
+	   and copy the build MaxObject.framework to /Library/Frameworks
+	3. Open the Xcode project for an object in MaxObject-Examples
+	4. Click the hammer icon or choose 'Build' from the menus
+	5. The external will need to be copied/added into the Max searchpath
 
