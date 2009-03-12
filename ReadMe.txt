@@ -1,15 +1,16 @@
 ObjectiveMax
 
 Framework for creating Max objects using Objective-C
-Timothy Place
-Electrotap, LLC
+Original code by Timothy Place
+Copyright © 2007-2009 by 74 Objects LLC
+http://74objects.com/
 
 ______________________________________________________
 
 
 INTRODUCTION
 ObjectiveMax is an open-source framework for creating Max objects using Objective-C.
-It is used in commercial products such as Electrotap's Tap.Tools.
+It is used in commercial products such as Tap.Tools 3, marketed by Electrotap.
 
 
 FEATURES
@@ -25,8 +26,8 @@ REQUIREMENTS
 
 
 LICENSE
-ObjectiveMax is licensed under the GNU GPL.  See the LICENSE.txt file in this distribution.  
-Other licensing arrangements are available by contacting support@electrotap.com.
+ObjectiveMax is licensed under the terms of The New BSD License.  
+See the LICENSE.txt file in this distribution.
 
 
 DIRECTORIES
