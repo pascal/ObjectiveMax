@@ -88,7 +88,9 @@ enum {
 	JCOLUMN_TEXT_FLOAT = 256,
 	JCOLUMN_TEXT_INT = 512,
 	JCOLUMN_TEXT_CANTEDIT = 1024,
-	JCOLUMN_TEXT_FONTSIZE = 2048
+	JCOLUMN_TEXT_FONTSIZE = 2048,
+	// 4096 is JCOLUMN_DISABLED -- do not use
+	JCOLUMN_TEXT_FILTERED = 8192
 };
 
 enum {
@@ -98,6 +100,9 @@ enum {
 
 #define JCOLUMN_DISABLED 0x1000
 
+
+/**	A dataview cell description.
+	@ingroup	jdataview	*/
 typedef struct _celldesc
 {
 	long row;
@@ -105,120 +110,125 @@ typedef struct _celldesc
 	long data;
 } t_celldesc;
 
-typedef struct _col
+
+/**	A dataview column.
+	Columns for a given dataview are stored in a #t_hashtab and accessed by name.
+	@ingroup	jdataview	*/
+typedef struct _col 
 {
 	t_object c_obj;
 	void *obex;
-	t_symbol *c_name;			// column name (hash)
-	t_object *c_dv;				// parent dataview
-	int c_id;					// id in DataViewComponent
-	long c_width;				// column width in pixels
-	long c_maxwidth;			// max column width
-	long c_minwidth;			// min column width
-	char c_autosize;			// determine width of text column automatically (true/false)
-	char c_alignment;			// display of text, left, right, center
-	t_symbol *c_font;			// name of font
-	long c_fontsize;			// font size (points?)
-	t_symbol *c_label;			// heading of column
-	char c_separator;			// separator mode
-	char c_button;				// column has a button (true/false)
-	t_symbol *c_buttonlabel;	// text in a button
-	t_symbol *c_customsort;		// message sent to sort this column -- if none, default sorting is used based on value c_numeric
-	char c_overridesort;		// if true only the sortdata method is called, not the sort method (true/false)
-	t_symbol *c_custompaint;	// send this msg name to client to paint this column
-	t_symbol *c_valuemsg;		// message sent when a component mode cell's value changes
-	t_symbol *c_beginmsg;		// message sent when a component mode cell's value is about to start changing
-	t_symbol *c_endmsg;			// message sent when a component mode cell's value is finished changing
-	t_symbol *c_rowcomponentmsg;// message sent to determine what kind of component should be created for each cell in a column
-	t_symbol *c_custommenuset;	// message to set a menu (for a readonly or custompaint column)
-	t_symbol *c_custommenuresult;	// message sent when an item is chosen from a custom menu
-	char c_editable;			// can you edit the data in a cell in this column
-	char c_selectable;			// can select the data in a cell in this column (possibly without being able to edit)
-	char c_multiselectable;		// can you select more than one cell in this column
-	char c_sortable;			// can you click on a column heading to sort the data
-	long c_initiallysorted;		// if this is set to JCOLUMN_INITIALLYSORTED_FORWARDS the column is displayed with the sort triangle
-	long c_maxtextlen;			// maximum text length: this is used to allocate a buffer to pass to gettext (but there is also a constant)
-	long c_sortdirection;
-	long c_component;			// enum of components (check box etc.)
-	char c_canselect;			// can select entire column
-	char c_cancut;				// can cut/clear entire column
-	char c_cancopy;				// can copy entire column
-	char c_cancutcells;			// can cut a single cell (assumes "editable" or "selectable") (probably won't be implemented)
-	char c_cancopycells;		// can copy a single cell
-	char c_canpastecells;		// can paste into a single cell
-	char c_hideable;			// can the column be hidden
-	char c_hidden;				// is the column hidden (set/get)
-	char c_numeric;				// is the data numeric (i.e., is getcellvalue implemented)
-	char c_draggable;			// can drag the column to rearrange it
-	char c_casesensitive;		// use case sensitive sorting (applies only to default text sorting)
-	void *c_reference;			// reference for the use of the client
-	double c_indentspacing;		// amount of space (in pixels) for one indent level
-	t_symbol *c_insertbefore;	// name of column before which this one should have been inserted (used only once)
-	t_symbol *c_cellcluemsg;	// message to send requesting clue text for a cell
-	t_symbol *c_celltextcolormsg;	// message to get the cell's text color
-	t_symbol *c_celltextstylemsg;	// message to get the cell's style and alignment
+	t_symbol *c_name;			///< column name (hash)
+	t_object *c_dv;				///< parent dataview
+	int c_id;					///< id in DataViewComponent
+	long c_width;				///< column width in pixels
+	long c_maxwidth;			///< max column width
+	long c_minwidth;			///< min column width
+	char c_autosize;			///< determine width of text column automatically (true/false)
+	char c_alignment;			///< display of text, left, right, center
+	t_symbol *c_font;			///< name of font
+	long c_fontsize;			///< font size (points?)
+	t_symbol *c_label;			///< heading of column
+	char c_separator;			///< separator mode
+	char c_button;				///< column has a button (true/false)
+	t_symbol *c_buttonlabel;	///< text in a button
+	t_symbol *c_customsort;		///< message sent to sort this column -- if none, default sorting is used based on value c_numeric
+	char c_overridesort;		///< if true only the sortdata method is called, not the sort method (true/false)
+	t_symbol *c_custompaint;	///< send this msg name to client to paint this column
+	t_symbol *c_valuemsg;		///< message sent when a component mode cell's value changes
+	t_symbol *c_beginmsg;		///< message sent when a component mode cell's value is about to start changing
+	t_symbol *c_endmsg;			///< message sent when a component mode cell's value is finished changing
+	t_symbol *c_rowcomponentmsg;///< message sent to determine what kind of component should be created for each cell in a column
+	t_symbol *c_custommenuset;	///< message to set a menu (for a readonly or custompaint column)
+	t_symbol *c_custommenuresult;	///< message sent when an item is chosen from a custom menu
+	char c_editable;			///< can you edit the data in a cell in this column
+	char c_selectable;			///< can select the data in a cell in this column (possibly without being able to edit)
+	char c_multiselectable;		///< can you select more than one cell in this column
+	char c_sortable;			///< can you click on a column heading to sort the data
+	long c_initiallysorted;		///< if this is set to JCOLUMN_INITIALLYSORTED_FORWARDS the column is displayed with the sort triangle
+	long c_maxtextlen;			///< maximum text length: this is used to allocate a buffer to pass to gettext (but there is also a constant)
+	long c_sortdirection;		///< 0 for ascending, 1 for descending
+	long c_component;			///< enum of components (check box etc.)
+	char c_canselect;			///< can select entire column
+	char c_cancut;				///< can cut/clear entire column
+	char c_cancopy;				///< can copy entire column
+	char c_cancutcells;			///< can cut a single cell (assumes "editable" or "selectable") (probably won't be implemented)
+	char c_cancopycells;		///< can copy a single cell
+	char c_canpastecells;		///< can paste into a single cell
+	char c_hideable;			///< can the column be hidden
+	char c_hidden;				///< is the column hidden (set/get)
+	char c_numeric;				///< is the data numeric (i.e., is getcellvalue implemented)
+	char c_draggable;			///< can drag the column to rearrange it
+	char c_casesensitive;		///< use case sensitive sorting (applies only to default text sorting)
+	void *c_reference;			///< reference for the use of the client
+	double c_indentspacing;		///< amount of space (in pixels) for one indent level
+	t_symbol *c_insertbefore;	///< name of column before which this one should have been inserted (used only once)
+	t_symbol *c_cellcluemsg;	///< message to send requesting clue text for a cell
+	t_symbol *c_celltextcolormsg;	///< message to get the cell's text color
+	t_symbol *c_celltextstylemsg;	///< message to get the cell's style and alignment
 } t_jcolumn;
 
-// columns are stored in a hashtab and accessed by name
 
+/**	The dataview object.
+	@ingroup	jdataview	*/
 typedef struct _jdataview
 {
 	t_object d_obj;
 	void *obex;
-	t_linklist *d_components;	// list of DataViewComponents showing this dataview
-	t_object *d_client;			// object that will be sent messages to get data to display
-	t_hashtab *d_columns;		// columns -- point to t_jcolumn objects
-	t_hashtab *d_id2columns;	// columns from column IDs
-	t_linklist *d_colorder;		// current order of columns
-	t_indexmap *d_rowmap;		// collection of rows (including number of rows)
-	long d_numcols;				// number of columns
-	double d_rowheight;			// fixed height of a row in pixels
-	char d_autoheight;			// height determined by font
-	char d_hierarchical;		// does it allow hierarchical disclosure (true / false) -- not implemented yet
-	t_jrgba d_rowcolor1;		// odd row color (striped)
-	t_jrgba d_rowcolor2;		// even row color
-	t_jrgba d_selectcolor;		// color when rows are selected
-	t_jrgba d_bordercolor;		// border color
-	char d_bordercolorset;		// was border color set? if not, use JUCE default
-	char d_canselectmultiple;	// multiple rows are selectable
-	char d_cancopy;				// copy enabled
-	char d_cancut;				// cut / clear enabled
-	char d_canpaste;			// paste enabled
-	char d_canrearrangerows;		// rows can be dragged to rearrange -- may not be implemented yet
-	char d_canrearrangecolumns;	// columns can be dragged to rearrange
-	long d_viscount;			// number of visible views of this dataview
-	long d_inset;				// inset for table inside containing component in pixels
-	char d_autosizeright;		// right side autosizes when top-level component changes
-	char d_autosizebottom;		// bottom autosizes when top-level component changes
-	char d_dragenabled;			// enabled for dragging (as in drag and drop)
-	t_symbol *d_fontname;		// font name
-	double d_fontsize;			// font size
-	t_symbol *d_colheadercluemsg;	// message to send requesting clue text for the column headers
-	char d_autosizerightcolumn;	// right column should stretch to remaining width of the dataview, regardless of column width
-	char d_customselectcolor;		// send getcellcolor message to draw selected cell, don't use select color
-	void *d_qelem;				// defer updating
+	t_linklist *d_components;	///< list of DataViewComponents showing this dataview
+	t_object *d_client;			///< object that will be sent messages to get data to display
+	t_hashtab *d_columns;		///< columns -- point to t_jcolumn objects
+	t_hashtab *d_id2columns;	///< columns from column IDs
+	t_linklist *d_colorder;		///< current order of columns
+	t_indexmap *d_rowmap;		///< collection of rows (including number of rows)
+	long d_numcols;				///< number of columns
+	double d_rowheight;			///< fixed height of a row in pixels
+	char d_autoheight;			///< height determined by font
+	char d_hierarchical;		///< does it allow hierarchical disclosure (true / false) -- not implemented yet
+	t_jrgba d_rowcolor1;		///< odd row color (striped)
+	t_jrgba d_rowcolor2;		///< even row color
+	t_jrgba d_selectcolor;		///< color when rows are selected
+	t_jrgba d_bordercolor;		///< border color
+	char d_bordercolorset;		///< was border color set? if not, use JUCE default
+	char d_canselectmultiple;	///< multiple rows are selectable
+	char d_cancopy;				///< copy enabled
+	char d_cancut;				///< cut / clear enabled
+	char d_canpaste;			///< paste enabled
+	char d_canrearrangerows;	///< rows can be dragged to rearrange -- may not be implemented yet
+	char d_canrearrangecolumns;	///< columns can be dragged to rearrange
+	long d_viscount;			///< number of visible views of this dataview
+	long d_inset;				///< inset for table inside containing component in pixels
+	char d_autosizeright;		///< right side autosizes when top-level component changes
+	char d_autosizebottom;		///< bottom autosizes when top-level component changes
+	char d_dragenabled;			///< enabled for dragging (as in drag and drop)
+	t_symbol *d_fontname;		///< font name
+	double d_fontsize;			///< font size
+	t_symbol *d_colheadercluemsg;	///< message to send requesting clue text for the column headers
+	char d_autosizerightcolumn;	///< right column should stretch to remaining width of the dataview, regardless of column width
+	char d_customselectcolor;		///< send getcellcolor message to draw selected cell, don't use select color
+	void *d_qelem;				///< defer updating
 	double d_colheaderheight;
 	char d_drawgrid;
-	long d_top_inset;			// vertical inset for row background (default 0)
-	long d_bottom_inset;		// vertical inset for row background (default 0)
-	long d_borderthickness;		// border line thickness default 0 for no border
-	char d_keyfocusable;		// notify component to grab some keys
-	char d_enabledeletekey;		// delete key will delete selected rows
-	char d_usegradient;			// color rows with gradient between rowcolor1 (top) and rowcolor2 (bottom)
-	char d_inchange;			// in change flag for inspector end-change protection system
-	char d_horizscrollvisible;	// is horizontal scroll bar visible
-	char d_vertscrollvisible;	// is vertical scroll bar visible
-	char d_scrollvisset;		// has the scroll visibility ever been changed since the dv was created?
-	char d_overridefocus;		// override default focus behavior where ListBox is focused when assigning focus to the dataview
-	char d_usesystemfont;		// use system font (true by default)
-	t_object *d_searchcolumn;	// column we ask for celltext in order to navigate the selection via the keyboard
-	t_object *d_returnkeycolumn;// column that is sent the return key when a given row is selected
-	void *d_navcache;			// sorted list of column strings for key navigation
-	char d_usecharheight;		// use font specified in points rather than pixels (default is pixels)
+	long d_top_inset;			///< vertical inset for row background (default 0)
+	long d_bottom_inset;		///< vertical inset for row background (default 0)
+	long d_borderthickness;		///< border line thickness default 0 for no border
+	char d_keyfocusable;		///< notify component to grab some keys
+	char d_enabledeletekey;		///< delete key will delete selected rows
+	char d_usegradient;			///< color rows with gradient between rowcolor1 (top) and rowcolor2 (bottom)
+	char d_inchange;			///< in change flag for inspector end-change protection system
+	char d_horizscrollvisible;	///< is horizontal scroll bar visible
+	char d_vertscrollvisible;	///< is vertical scroll bar visible
+	char d_scrollvisset;		///< has the scroll visibility ever been changed since the dv was created?
+	char d_overridefocus;		///< override default focus behavior where ListBox is focused when assigning focus to the dataview
+	char d_usesystemfont;		///< use system font (true by default)
+	t_object *d_searchcolumn;	///< column we ask for celltext in order to navigate the selection via the keyboard
+	t_object *d_returnkeycolumn;///< column that is sent the return key when a given row is selected
+	void *d_navcache;			///< sorted list of column strings for key navigation
+	char d_usecharheight;		///< use font specified in points rather than pixels (default is pixels)
 } t_jdataview;
 
-// used to notify a component of a jdataview change
 
+// private -- used to notify a component of a jdataview change
 typedef struct _jdv_notifier
 {
 	t_jdataview *n_dataview;
@@ -227,34 +237,51 @@ typedef struct _jdv_notifier
 } t_jdv_notifier;
 
 
-// used to pass data to a client sort function
-
+/** used to pass data to a client sort function 
+	@ingroup	jdataview	*/
 typedef struct _privatesortrec
 {
-	t_jcolumn *p_col;		// column object to sort
-	char p_fwd;				// 1 if sorting "forwards"
-	t_object *p_client;
-	t_jdataview *p_dv;
+	t_jcolumn *p_col;		///< column object to sort
+	char p_fwd;				///< 1 if sorting "forwards"
+	t_object *p_client;		///< pointer to the client object
+	t_jdataview *p_dv;		///< pointer to the dataview
 } t_privatesortrec;
 
 
-// functions
-
+// private
 void jdataview_initclass(void);
 
-// create one
 
+/** Create a dataview.  
+	You should free it with object_free().
+	@ingroup	jdataview
+	@return		A pointer to the new instance.	*/
 void *jdataview_new(void);
 
-// set its client
 
+/** Set a dataview's client.
+	The client is the object to which the dataview will send messages to get data,
+	notify of changes to cells, etc.
+	Typically this is the object in which you are creating the dataview.
+	@ingroup		jdataview
+	@param	dv		The dataview instance.
+	@param	client	The object to be assigned as the dataview's client.	*/
 void jdataview_setclient(t_object *dv, t_object *client);
+
+/** Get a pointer to a dataview's client.
+	The client is the object to which the dataview will send messages to get data,
+	notify of changes to cells, etc.
+	@ingroup		jdataview
+	@param	dv		The dataview instance.
+	@return			A pointer to the dataview's client object.	*/
 t_object *jdataview_getclient(t_object *dv);
+
 
 // make it visible
 
 void jdataview_patchervis(t_object *dv, t_object *pv);
 void jdataview_patcherinvis(t_object *dv, t_object *pv);
+
 
 // set global attributes
 
@@ -498,6 +525,7 @@ void jdataview_cellpaste(t_object *dv);
 
 int jdataview_getcellcomponent(t_object *dv, int columnId, int rowNumber, long *options);
 int jdataview_getcellfiletypes(t_object *dv, t_symbol *colname, t_rowref rr, long *count, long **types, char *alloc);
+t_symbol *jdataview_getcellfilterval(t_object *dv, t_symbol *colname, t_rowref rr);
 void jdataview_redrawcell(t_object *dv, t_symbol *colname, t_rowref rr);
 void jdataview_begincellchange(t_object *dv, t_symbol *colname, t_rowref rr);
 void jdataview_endcellchange(t_object *dv, t_symbol *colname, t_rowref rr);
