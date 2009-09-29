@@ -3,6 +3,7 @@
 
 BEGIN_USING_C_LINKAGE
 
+
 // private
 void globalsymbol_initclass();
 
