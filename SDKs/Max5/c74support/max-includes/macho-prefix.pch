@@ -5,3 +5,6 @@
 #include <Carbon/Carbon.h>
 #include <QuickTime/QuickTime.h>
 
+// the check macro is defined on Carbon, which then conflicts with Boost...
+#undef check
+
